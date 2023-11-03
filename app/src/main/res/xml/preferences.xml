@@ -35,8 +35,8 @@
             app:title="Unit Preference"
             app:summary="Select the units"
             app:iconSpaceReserved="false"
-            app:entries="@array/UnitPreferences"
-            app:entryValues="@array/UnitPreferencesData"/>
+            app:entries="@array/unit_preferences"
+            app:entryValues="@array/unit_preferences_data"/>
         <EditTextPreference
             app:key="comments"
             app:title="Comments"

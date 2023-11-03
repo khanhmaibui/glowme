@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="UnitPreferences">
+    <string-array name="unit_preferences">
         <item>Metric (Kilometers)</item>
         <item>Imperial (Miles)</item>
     </string-array>
-    <string-array name="UnitPreferencesData">
+    <string-array name="unit_preferences_data">
         <item>km</item>
         <item>mi</item>
+    </string-array>
+    <string-array name="start_input_items">
+        <item>Manual Entry</item>
+        <item>GPS</item>
+        <item>Automatic</item>
+    </string-array>
+    <string-array name="start_activity_type">
+        <item>Running</item>
+        <item>Walking</item>
+        <item>Standing</item>
+        <item>Cycling</item>
+        <item>Hiking</item>
+        <item>Downhill Skiing</item>
+        <item>Cross-Country Skiing</item>
+        <item>Snowboarding</item>
+        <item>Skating</item>
+        <item>Swimming</item>
+        <item>Mountain Biking</item>
+        <item>Wheelchair</item>
+        <item>Elliptical</item>
+        <item>Other</item>
     </string-array>
 </resources>

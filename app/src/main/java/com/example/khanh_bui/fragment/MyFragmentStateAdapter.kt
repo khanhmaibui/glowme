@@ -1,4 +1,4 @@
-package com.example.khanh_bui
+package com.example.khanh_bui.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

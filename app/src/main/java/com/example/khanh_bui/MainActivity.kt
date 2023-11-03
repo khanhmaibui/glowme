@@ -1,32 +1,18 @@
 package com.example.khanh_bui
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.View
-import android.widget.ImageView
-import android.widget.RadioGroup
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.example.khanh_bui.fragment.FragmentHistory
+import com.example.khanh_bui.fragment.FragmentSettings
+import com.example.khanh_bui.fragment.FragmentStart
+import com.example.khanh_bui.fragment.MyFragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy
-import java.io.File
 
 class MainActivity : AppCompatActivity() {
     private lateinit var fragmentStart: FragmentStart

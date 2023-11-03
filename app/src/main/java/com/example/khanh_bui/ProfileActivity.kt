@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import java.io.File
+import java.io.FileOutputStream
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var imageView: ImageView
@@ -34,14 +36,18 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var sharedPreference: SharedPreferences
     private lateinit var profilePictureUri: Uri
     private lateinit var tempProfilePictureUri: Uri
+    private lateinit var pickedProfilePictureUri: Uri
     private lateinit var profilePicture: File
     private lateinit var tempProfilePicture: File
+    private lateinit var pickedProfilePicture: File
 
     private lateinit var cameraResult: ActivityResultLauncher<Intent>
+    private lateinit var galleryResult: ActivityResultLauncher<Intent>
     private lateinit var profilePictureViewModel: ProfilePictureViewModel
 
     private val profilePictureName = "profile_picture.jpg"
     private val tempProfilePictureName = "temp_picture.jpg"
+    private val pickedProfilePictureName = "picked_picture.jpg"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,11 +73,37 @@ class ProfileActivity : AppCompatActivity() {
         tempProfilePicture = File(getExternalFilesDir(null), tempProfilePictureName)
         tempProfilePictureUri = FileProvider.getUriForFile(this, "com.example.khanh_bui", tempProfilePicture)
 
+        pickedProfilePicture = File(getExternalFilesDir(null), pickedProfilePictureName)
+        pickedProfilePictureUri = FileProvider.getUriForFile(this, "com.example.khanh_bui", tempProfilePicture)
+
         //Set cameraResult to temporary profile picture
         cameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 result: ActivityResult ->
             if(result.resultCode == Activity.RESULT_OK){
-                profilePictureViewModel.userImage.value = Util.getBitmap(this, tempProfilePictureUri)
+                val bitmap = Util.getBitmap(this, tempProfilePictureUri)
+                profilePictureViewModel.userImage.value = bitmap
+                MediaStore.Images.Media.insertImage(this.contentResolver, bitmap, tempProfilePictureName, null)
+                if (pickedProfilePicture.exists()) {
+                    pickedProfilePicture.delete()
+                }
+            }
+        }
+
+        galleryResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if(result.resultCode == Activity.RESULT_OK){
+                //save Uri picked to tempProfilePicture
+                pickedProfilePictureUri = result.data?.data!!
+                val bitmap = Util.getBitmap(this, pickedProfilePictureUri)
+                val fOut = FileOutputStream(pickedProfilePicture)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut)
+                fOut.flush()
+                fOut.close()
+                //set imageview
+                profilePictureViewModel.userImage.value = Util.getBitmap(this, pickedProfilePictureUri)
+                if (tempProfilePicture.exists()) {
+                    tempProfilePicture.delete()
+                }
             }
         }
 
@@ -115,18 +147,17 @@ class ProfileActivity : AppCompatActivity() {
         var intent: Intent
         alertDialogBuilder.setTitle("Select profile image")
             .setItems(items) { _, index -> when(items[index])
-            {
-                "Take from camera" -> {
-                    intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, tempProfilePictureUri)
-                    cameraResult.launch(intent)
+                {
+                    "Take from camera" -> {
+                        intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, tempProfilePictureUri)
+                        cameraResult.launch(intent)
+                    }
+                    "Select from gallery" -> {
+                        intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                        galleryResult.launch(intent)
+                    }
                 }
-                "Select from gallery" -> {
-                    intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, tempProfilePictureUri)
-                    cameraResult.launch(intent)
-                }
-            }
             }
         alertDialogBuilder.show()
     }
@@ -134,6 +165,9 @@ class ProfileActivity : AppCompatActivity() {
     fun onSaveClicked(view: View) {
         if (tempProfilePicture.exists()) {
             tempProfilePicture.renameTo(profilePicture)
+        }
+        if (pickedProfilePicture.exists()) {
+            pickedProfilePicture.renameTo(profilePicture)
         }
         saveProfile()
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
