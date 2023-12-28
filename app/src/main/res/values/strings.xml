@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Khanh_Bui_MyRuns</string>
+    <string name="your_name">Your name here</string>
+    <string name="text_name">Name:</string>
+    <string name="your_email">Your Email here</string>
+    <string name="text_email">Email:</string>
+    <string name="your_number">Your phone number here</string>
+    <string name="text_number">Phone:</string>
+    <string name="change_button">Change</string>
+    <string name="profile_photo"> Profile photo:</string>
+    <string name="gender">Gender:</string>
+    <string name="female_option">Female</string>
+    <string name="male_option">Male</string>
+    <string name="text_class_year">Class:</string>
+    <string name="class_year">e.g. 2012</string>
+    <string name="text_major">Major:</string>
+    <string name="major">Your Major</string>
+
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="start_button">Start</string>
+
+    <string name="input_type">Input Type</string>
+    <string name="activity_type">Activity Type</string>
+    <string name="date_time">Date and time</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="calories">Calories</string>
+    <string name="heart_rate">Heart Rate</string>
+
+    <string name="map_type">Type: </string>
+    <string name="map_avg_speed">Avg speed: </string>
+    <string name="map_cur_speed">Cur speed: </string>
+    <string name="map_climb">Climb: </string>
+    <string name="map_calorie">Calorie: </string>
+    <string name="map_distance">Distance: </string>
+</resources>

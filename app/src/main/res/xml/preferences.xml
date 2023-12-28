@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="account_preferences"
+        app:title="Account Preferences"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="user_profile"
+            app:title="Name, Email, Class, etc."
+            app:summary="User Profile"
+            app:iconSpaceReserved="false">
+            <intent
+                android:targetPackage="com.example.khanh_bui"
+                android:targetClass="com.example.khanh_bui.ProfileActivity"/>
+        </Preference>
+
+        <CheckBoxPreference
+            app:key="notifications"
+            app:title="Privacy Setting"
+            app:summary="Posting your records anonymously"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="additional_settings"
+        app:title="Additional Settings"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="UNIT_PREF"
+            android:defaultValue="Miles"
+            app:title="Unit Preference"
+            app:summary="Select the units"
+            app:iconSpaceReserved="false"
+            app:entries="@array/unit_preferences"
+            app:entryValues="@array/unit_preferences_data"/>
+        <EditTextPreference
+            app:key="comments"
+            app:title="Comments"
+            app:summary="Please enter your comments"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="misc"
+        app:title="Misc."
+        app:iconSpaceReserved="false">
+
+        <Preference
+            app:key="webpage"
+            app:title="Webpage"
+            app:summary="http://www.sfu.ca/computing.html"
+            app:iconSpaceReserved="false">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="http://www.sfu.ca/computing.html"/>
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
